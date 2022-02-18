@@ -36,4 +36,11 @@ public class BoardService {
         List<Board> findAllBoard = boardRepository.findAll();
         return findAllBoard;
     }
+
+    public Optional<Board> findBoardDetail(Long boardId) {
+        Optional<Board> findBoardDetails = boardRepository.findById(boardId);
+        return findBoardDetails;
+    }
+
+
 }
