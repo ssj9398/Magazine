@@ -17,6 +17,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -51,7 +52,7 @@ class BoardServiceTest {
         em.flush();
 
         //then
-        Assertions.assertThat(findBoardId).isEqualTo(findId.get().getId());
+        assertThat(findBoardId).isEqualTo(findId.get().getId());
 
     }
 
@@ -75,7 +76,33 @@ class BoardServiceTest {
         //then
         List<Board> boardList = boardService.findBoard();
         System.out.println(boardList);
-        Assertions.assertThat(boardList.size()).isEqualTo(3);
+        assertThat(boardList.size()).isEqualTo(3);
     }
 
+    @Test
+    public void 게시글상세조회() throws Exception {
+        //given
+        AccountRequestDto accountRequestDto = new AccountRequestDto("홍길동님", "abcd@google.com", "1234");
+        accountService.addUser(accountRequestDto);
+
+        BoardRequestDto boardRequestDto = new BoardRequestDto("abcd@google.com", "내용내용");
+        Long findBoardId = boardService.addBoard(boardRequestDto);
+
+        BoardRequestDto boardRequestDto2 = new BoardRequestDto("abcd@google.com", "내용내용2");
+        Long findBoardId2 = boardService.addBoard(boardRequestDto2);
+
+        BoardRequestDto boardRequestDto3 = new BoardRequestDto("abcd@google.com", "내용내용3");
+        Long findBoardId3 = boardService.addBoard(boardRequestDto3);
+
+        em.flush();
+        //when
+        Optional<Board> BoardOne1 = boardRepository.findById(findBoardId);
+        Optional<Board> BoardOne2 = boardRepository.findById(findBoardId2);
+        Optional<Board> BoardOne3 = boardRepository.findById(findBoardId3);
+
+        //then
+        assertThat(findBoardId).isEqualTo(BoardOne1.get().getId());
+        assertThat(findBoardId2).isEqualTo(BoardOne2.get().getId());
+        assertThat(findBoardId3).isEqualTo(BoardOne3.get().getId());
+    }
 }
