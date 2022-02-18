@@ -54,4 +54,23 @@ class LikeServiceTest {
         //then
         Assertions.assertThat(board.getLikes().size()).isEqualTo(1);
     }
+
+    @Test
+    public void 게시글좋아요삭제() throws Exception {
+        //given
+        AccountRequestDto accountRequestDto = new AccountRequestDto("홍길동님", "abcd@google.com", "1234");
+        Long findUser = accountService.addUser(accountRequestDto);
+
+        BoardRequestDto boardRequestDto = new BoardRequestDto("abcd@google.com", "내용내용");
+        Long findBoardId = boardService.addBoard(boardRequestDto);
+        Optional<Board> findId = boardRepository.findById(findBoardId);
+
+        //when
+        likeRepository.deleteLike(findId.get().getId(), findUser);
+        Optional<Likes> deletefindId = likeRepository.findById(findId.get().getId());
+
+        //then
+        Assertions.assertThat(deletefindId).isEmpty();
+
+    }
 }
