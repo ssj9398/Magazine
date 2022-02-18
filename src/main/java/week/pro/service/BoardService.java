@@ -42,5 +42,10 @@ public class BoardService {
         return findBoardDetails;
     }
 
-
+    @Transactional
+    public Optional<Board> modifyBoard(Long boardId, BoardRequestDto boardRequestDto) {
+        Optional<Board> findOneBoard = boardRepository.findById(boardId);
+        findOneBoard.get().updateBoard(boardRequestDto);
+        return findOneBoard;
+    }
 }

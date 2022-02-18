@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import week.pro.dto.BoardRequestDto;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -35,5 +36,9 @@ public class Board extends Timestamped{
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public void updateBoard(BoardRequestDto boardRequestDto){
+        this.content = boardRequestDto.getContent();
     }
 }
