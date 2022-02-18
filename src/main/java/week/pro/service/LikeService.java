@@ -3,8 +3,11 @@ package week.pro.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import week.pro.advice.exception.BoardNotFoundException;
+import week.pro.advice.exception.UserNotFoundException;
 import week.pro.domain.Board;
 import week.pro.domain.Likes;
+import week.pro.repository.AccountRepository;
 import week.pro.repository.BoardRepository;
 import week.pro.repository.LikeRepository;
 
@@ -19,9 +22,13 @@ public class LikeService {
 
     private final BoardRepository boardRepository;
 
+    private final AccountRepository accountRepository;
+
     @Transactional
     public Board addLike(Long boardId) {
-        Optional<Board> findLikeId = boardRepository.findById(boardId);
+        Optional<Board> findLikeId = Optional.ofNullable(boardRepository.findById(boardId).orElseThrow(BoardNotFoundException::new));
+        Optional<Board> byUser = Optional.ofNullable(boardRepository.findByUser(findLikeId.get().getAccount().getId()).orElseThrow(UserNotFoundException::new));
+
         Likes likes = Likes.builder()
                 .account(findLikeId.get().getAccount())
                 .board(findLikeId.get())
@@ -33,6 +40,8 @@ public class LikeService {
 
     @Transactional
     public void removeLike(Long boardId, Long accountId) {
-        likeRepository.deleteLike(boardId,accountId);
+        Optional<Board> findLikeId = Optional.ofNullable(boardRepository.findById(boardId).orElseThrow(BoardNotFoundException::new));
+        Optional<Board> byUser = Optional.ofNullable(boardRepository.findByUser(accountId).orElseThrow(UserNotFoundException::new));
+        likeRepository.deleteLike(boardId, accountId);
     }
 }

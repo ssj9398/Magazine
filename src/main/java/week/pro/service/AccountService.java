@@ -3,6 +3,8 @@ package week.pro.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import week.pro.advice.exception.UserNameDuplicateException;
+import week.pro.advice.exception.UserNotFoundException;
 import week.pro.domain.Account;
 import week.pro.dto.AccountRequestDto;
 import week.pro.repository.AccountRepository;
@@ -31,12 +33,12 @@ public class AccountService {
     private void validateDuplicateAccount(Account account){
         Optional<Account> findUser = accountRepository.findByEmail(account.getEmail());
         if(findUser.isPresent()){
-            throw new NullPointerException();
+            throw new UserNameDuplicateException();
         }
     }
 
     public Long loginUser(AccountRequestDto accountRequestDto) {
-        Optional<Account> findUser = Optional.ofNullable(accountRepository.findByEmail(accountRequestDto.getEmail()).orElseThrow(NullPointerException::new));
+        Optional<Account> findUser = Optional.ofNullable(accountRepository.findByEmail(accountRequestDto.getEmail()).orElseThrow(UserNotFoundException::new));
         return findUser.get().getId();
     }
 }
