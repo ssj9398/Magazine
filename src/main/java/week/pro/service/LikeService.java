@@ -30,4 +30,9 @@ public class LikeService {
         findLikeId.get().addLike(likes);
         return findLikeId.get();
     }
+
+    @Transactional
+    public void removeLike(Long boardId, Long accountId) {
+        likeRepository.deleteLike(boardId,accountId);
+    }
 }
