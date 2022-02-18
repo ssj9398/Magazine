@@ -1,0 +1,23 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # DB Source
+    url: jdbc:mysql://localhost:3306/week2?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
+    # DB username
+    username: root
+    # DB password
+    password: 1q2w3e4r
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+    database: MYSQL
+
+logging:
+  level:
+    org.hibernate.SQL: debug
