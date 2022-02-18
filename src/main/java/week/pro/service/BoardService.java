@@ -9,6 +9,7 @@ import week.pro.dto.BoardRequestDto;
 import week.pro.repository.AccountRepository;
 import week.pro.repository.BoardRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,5 +30,10 @@ public class BoardService {
         boardRepository.save(board);
         findUserEmail.get().addBoard(board);
         return board.getId();
+    }
+
+    public List<Board> findBoard() {
+        List<Board> findAllBoard = boardRepository.findAll();
+        return findAllBoard;
     }
 }
