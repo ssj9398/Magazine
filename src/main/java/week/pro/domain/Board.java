@@ -1,11 +1,11 @@
 package week.pro.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +18,6 @@ public class Board extends Timestamped{
     @Column(name = "board_id")
     private Long id;
 
-    private String title;
-
     @Lob
     private String content;
 
@@ -30,4 +28,12 @@ public class Board extends Timestamped{
     @OneToMany(mappedBy = "board")
     private List<Likes> likes = new ArrayList<>();
 
+    @Builder
+    public Board(String content){
+        this.content = content;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 }

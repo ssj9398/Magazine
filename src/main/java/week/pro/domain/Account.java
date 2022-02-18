@@ -30,12 +30,17 @@ public class Account extends Timestamped {
     private String password;
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Board> board = new ArrayList<>();
+    private List<Board> boards = new ArrayList<>();
 
     @Builder
     public Account (String name, String email, String password){
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    public void addBoard(Board board) {
+        boards.add(board);
+        board.setAccount(this);
     }
 }
