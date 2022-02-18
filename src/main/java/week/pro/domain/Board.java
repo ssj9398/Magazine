@@ -41,4 +41,9 @@ public class Board extends Timestamped{
     public void updateBoard(BoardRequestDto boardRequestDto){
         this.content = boardRequestDto.getContent();
     }
+
+    public void addLike(Likes likes) {
+        this.likes.add(likes);
+        likes.setBoard(this);
+    }
 }
