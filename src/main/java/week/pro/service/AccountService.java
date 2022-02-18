@@ -2,6 +2,7 @@ package week.pro.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import week.pro.domain.Account;
 import week.pro.dto.AccountRequestDto;
 import week.pro.repository.AccountRepository;
@@ -10,10 +11,12 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class AccountService {
 
     private final AccountRepository accountRepository;
 
+    @Transactional
     public Long addUser(AccountRequestDto accountRequestDto){
         Account account = Account.builder()
                 .email(accountRequestDto.getEmail())
