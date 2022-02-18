@@ -48,4 +48,9 @@ public class BoardService {
         findOneBoard.get().updateBoard(boardRequestDto);
         return findOneBoard;
     }
+
+    @Transactional
+    public void removeBoard(Long boardId) {
+        boardRepository.deleteById(boardId);
+    }
 }
