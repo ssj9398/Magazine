@@ -26,10 +26,14 @@ public class AccountService {
     }
 
     private void validateDuplicateAccount(Account account){
-        Optional<Account> findAccount = accountRepository.findByEmail(account.getEmail());
-        if(findAccount.isPresent()){
+        Optional<Account> findUser = accountRepository.findByEmail(account.getEmail());
+        if(findUser.isPresent()){
             throw new NullPointerException();
         }
     }
 
+    public Long loginUser(AccountRequestDto accountRequestDto) {
+        Optional<Account> findUser = Optional.ofNullable(accountRepository.findByEmail(accountRequestDto.getEmail()).orElseThrow(NullPointerException::new));
+        return findUser.get().getId();
+    }
 }
