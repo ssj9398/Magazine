@@ -53,10 +53,24 @@ class AccountServiceTest {
 
         //when
         //then
-        String test = null;
         assertThrows(NullPointerException.class, () -> {
             accountService.addUser(accountRequestDto);
             accountService.addUser(accountRequestDto2);
         });
+    }
+
+    @Test
+    public void 로그인(){
+        //given
+        AccountRequestDto accountRequestDto = new AccountRequestDto("홍길동님", "abcd@google.com", "1234");
+        Long saveUser = accountService.addUser(accountRequestDto);
+        em.flush();
+
+        //when
+        AccountRequestDto loginRequestDto = new AccountRequestDto("홍길동님", "abcd@google.com", "1234");
+        Long loginUser = accountService.loginUser(loginRequestDto);
+        Assertions.assertThat(saveUser).isEqualTo(loginUser);
+
+        //then
     }
 }
