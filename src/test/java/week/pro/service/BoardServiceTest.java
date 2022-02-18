@@ -61,7 +61,6 @@ class BoardServiceTest {
         //given
         AccountRequestDto accountRequestDto = new AccountRequestDto("홍길동님", "abcd@google.com", "1234");
         accountService.addUser(accountRequestDto);
-        em.flush();
 
         //when
         BoardRequestDto boardRequestDto = new BoardRequestDto("abcd@google.com","내용내용");
@@ -104,5 +103,26 @@ class BoardServiceTest {
         assertThat(findBoardId).isEqualTo(BoardOne1.get().getId());
         assertThat(findBoardId2).isEqualTo(BoardOne2.get().getId());
         assertThat(findBoardId3).isEqualTo(BoardOne3.get().getId());
+    }
+
+    @Test
+    public void 게시글수정() throws Exception {
+        //given
+        AccountRequestDto accountRequestDto = new AccountRequestDto("홍길동님", "abcd@google.com", "1234");
+        accountService.addUser(accountRequestDto);
+
+        BoardRequestDto boardRequestDto = new BoardRequestDto("abcd@google.com","내용내용");
+        Long findBoardId = boardService.addBoard(boardRequestDto);
+        Optional<Board> findId = boardRepository.findById(findBoardId);
+        em.flush();
+        //when
+
+        BoardRequestDto boardModify = new BoardRequestDto("abcdefg@google.com","수정수정");
+        Optional<Board> board = boardService.modifyBoard(findBoardId, boardModify);
+
+        assertThat(board.get().getContent()).isEqualTo("수정수정");
+
+
+        //then
     }
 }
