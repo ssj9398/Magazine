@@ -1,6 +1,7 @@
 package week.pro.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -80,6 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-ui/index.html").permitAll()
                 //.antMatchers("/api/signup").permitAll()
                 .antMatchers("/api/login").permitAll()
+                .antMatchers(HttpMethod.GET,"/api/board").permitAll()
                 .antMatchers("/api/register").permitAll()
 
                 //나머지 요청에 대해선 인증을 받아야 한다.
