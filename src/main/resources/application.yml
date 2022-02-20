@@ -12,7 +12,7 @@ spring:
     password: 1q2w3e4r
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
@@ -21,3 +21,9 @@ spring:
 logging:
   level:
     org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql: trace
+
+jwt:
+  header: Authorization
+  secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
+  token-validity-in-seconds: 86400

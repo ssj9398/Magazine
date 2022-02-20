@@ -16,6 +16,8 @@ public class AccountResponseDto {
 
     private String account_name;
 
+     private String token;
+
     public AccountResponseDto(Account account){
         this.account_id = account.getId();
         this.account_email = account.getEmail();

@@ -1,6 +1,8 @@
 package week.pro.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import week.pro.advice.exception.UserNameDuplicateException;
@@ -18,13 +20,15 @@ import java.util.Optional;
 public class AccountService {
 
     private final AccountRepository accountRepository;
+    private final PasswordEncoder encoder;
 
     @Transactional
     public Long addUser(AccountRequestDto accountRequestDto){
         Account account = Account.builder()
                 .email(accountRequestDto.getAccount_email())
                 .name(accountRequestDto.getAccount_name())
-                .password(accountRequestDto.getPassword())
+                .password(encoder.encode(accountRequestDto.getPassword()))
+                .activated(true)
                 .build();
         validateDuplicateAccount(account);
         accountRepository.save(account);
@@ -32,14 +36,14 @@ public class AccountService {
     }
 
     private void validateDuplicateAccount(Account account){
-        Optional<Account> findUser = accountRepository.findByEmail(account.getEmail());
+        Optional<AccountResponseDto> findUser = accountRepository.findByEmail(account.getEmail());
         if(findUser.isPresent()){
             throw new UserNameDuplicateException();
         }
     }
 
     public AccountResponseDto loginUser(Account.Login login) {
-        Optional<AccountResponseDto> findUser = Optional.ofNullable(accountRepository.findByEmailAndPassword(login.getAccount_email(), login.getPassword()).orElseThrow(UserNotFoundException::new));
+        Optional<AccountResponseDto> findUser = Optional.ofNullable(accountRepository.findByEmail(login.getAccount_email())).orElseThrow(UserNotFoundException::new);
         return findUser.get();
     }
 }

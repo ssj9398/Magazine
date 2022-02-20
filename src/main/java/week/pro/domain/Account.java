@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -26,14 +27,26 @@ public class Account extends Timestamped {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "activated")
+    private boolean activated;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_authority",
+            joinColumns = {@JoinColumn(name = "account_id", referencedColumnName = "account_id")},
+            inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
+
+    private Set<Authority> authorities;
+
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Board> boards = new ArrayList<>();
 
     @Builder
-    public Account (String name, String email, String password){
+    public Account (String name, String email, String password, boolean activated){
         this.name = name;
         this.email = email;
         this.password = password;
+        this.activated = activated;
     }
 
     public void addBoard(Board board) {
