@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AccountRequestDto {
 
-    private String name;
+    private String account_name;
 
-    private String email;
+    private String account_email;
 
     private String password;
 }

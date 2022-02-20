@@ -1,9 +1,6 @@
 package week.pro.domain;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -42,5 +39,14 @@ public class Account extends Timestamped {
     public void addBoard(Board board) {
         boards.add(board);
         board.setAccount(this);
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Login{
+        private String account_email;
+        private String password;
     }
 }

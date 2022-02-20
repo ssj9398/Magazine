@@ -6,7 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import week.pro.domain.Account;
 import week.pro.dto.AccountRequestDto;
+import week.pro.dto.AccountResponseDto;
+import week.pro.model.GetAccount;
 import week.pro.model.Success;
 import week.pro.service.AccountService;
 
@@ -23,9 +26,8 @@ public class AccountController {
     }
 
     @PostMapping("/api/login")
-    public Long UserLogin(@RequestBody AccountRequestDto accountRequestDto){
-        Long loginUser = accountService.loginUser(accountRequestDto);
-
-        return loginUser;
+    public ResponseEntity<GetAccount> UserLogin(@RequestBody Account.Login login){
+        AccountResponseDto loginUser = accountService.loginUser(login);
+        return new ResponseEntity<>(new GetAccount(true,"로그인 성공",loginUser),HttpStatus.OK);
     }
 }

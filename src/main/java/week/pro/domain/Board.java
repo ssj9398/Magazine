@@ -1,12 +1,10 @@
 package week.pro.domain;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import week.pro.dto.BoardRequestDto;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,12 +36,39 @@ public class Board extends Timestamped{
         this.account = account;
     }
 
-    public void updateBoard(BoardRequestDto boardRequestDto){
-        this.content = boardRequestDto.getContent();
+    public void updateBoard(BoardModify boardModify){
+        this.content = boardModify.getContent();
     }
 
     public void addLike(Likes likes) {
         this.likes.add(likes);
         likes.setBoard(this);
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class BoardDetailResponse{
+
+        private Long board_id;
+
+        private String content;
+
+        private LocalDateTime time;
+
+        public BoardDetailResponse(Board board){
+            this.board_id = board.getId();
+            this.content = board.getContent();
+            this.time = board.getModifiedAt();
+        }
+
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class BoardModify{
+        private String content;
     }
 }

@@ -8,11 +8,11 @@ import week.pro.domain.Board;
 import week.pro.dto.BoardRequestDto;
 import week.pro.dto.BoardResponseDto;
 import week.pro.model.GetAllBoard;
+import week.pro.model.GetBoard;
 import week.pro.model.Success;
 import week.pro.service.BoardService;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -36,16 +36,16 @@ public class BoardController {
     }
 
     @GetMapping("/api/board/{boardId}")
-    public List<BoardResponseDto> boardDetails(@PathVariable Long boardId){
-        List<BoardResponseDto> boardDetail = boardService.findBoardDetail(boardId).stream()
-                .map(BoardResponseDto::new)
+    public ResponseEntity<GetBoard> boardDetails(@PathVariable Long boardId){
+        List<Board.BoardDetailResponse> boardDetail = boardService.findBoardDetail(boardId).stream()
+                .map(Board.BoardDetailResponse::new)
                 .collect(Collectors.toList());
-        return boardDetail;
+        return new ResponseEntity<>(new GetBoard(true,"게시글 하나 조회 성공",boardDetail),HttpStatus.OK);
     }
 
     @PutMapping("/api/board/{boardId}")
-    public ResponseEntity<Success> boardModify(@PathVariable Long boardId, @RequestBody BoardRequestDto boardRequestDto){
-        boardService.modifyBoard(boardId, boardRequestDto);
+    public ResponseEntity<Success> boardModify(@PathVariable Long boardId, @RequestBody Board.BoardModify boardModify){
+        boardService.modifyBoard(boardId, boardModify);
         return new ResponseEntity<>(new Success(true,"게시글 수정 성공"),HttpStatus.OK);
     }
 

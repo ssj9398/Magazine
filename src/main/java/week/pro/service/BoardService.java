@@ -44,9 +44,9 @@ public class BoardService {
     }
 
     @Transactional
-    public Optional<Board> modifyBoard(Long boardId, BoardRequestDto boardRequestDto) {
+    public Optional<Board> modifyBoard(Long boardId, Board.BoardModify boardModify) {
         Optional<Board> findOneBoard = Optional.ofNullable(boardRepository.findById(boardId).orElseThrow(BoardNotFoundException::new));
-        findOneBoard.get().updateBoard(boardRequestDto);
+        findOneBoard.get().updateBoard(boardModify);
         return findOneBoard;
     }
 

@@ -7,6 +7,7 @@ import week.pro.advice.exception.UserNameDuplicateException;
 import week.pro.advice.exception.UserNotFoundException;
 import week.pro.domain.Account;
 import week.pro.dto.AccountRequestDto;
+import week.pro.dto.AccountResponseDto;
 import week.pro.repository.AccountRepository;
 
 import java.util.Optional;
@@ -21,8 +22,8 @@ public class AccountService {
     @Transactional
     public Long addUser(AccountRequestDto accountRequestDto){
         Account account = Account.builder()
-                .email(accountRequestDto.getEmail())
-                .name(accountRequestDto.getName())
+                .email(accountRequestDto.getAccount_email())
+                .name(accountRequestDto.getAccount_name())
                 .password(accountRequestDto.getPassword())
                 .build();
         validateDuplicateAccount(account);
@@ -37,8 +38,8 @@ public class AccountService {
         }
     }
 
-    public Long loginUser(AccountRequestDto accountRequestDto) {
-        Optional<Account> findUser = Optional.ofNullable(accountRepository.findByEmail(accountRequestDto.getEmail()).orElseThrow(UserNotFoundException::new));
-        return findUser.get().getId();
+    public AccountResponseDto loginUser(Account.Login login) {
+        Optional<AccountResponseDto> findUser = Optional.ofNullable(accountRepository.findByEmailAndPassword(login.getAccount_email(), login.getPassword()).orElseThrow(UserNotFoundException::new));
+        return findUser.get();
     }
 }
