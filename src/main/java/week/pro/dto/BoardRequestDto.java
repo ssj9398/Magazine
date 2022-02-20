@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BoardRequestDto {
 
-    private String email;
+    private Long account_id;
 
     private String content;
 }

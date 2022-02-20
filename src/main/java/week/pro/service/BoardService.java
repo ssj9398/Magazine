@@ -24,13 +24,12 @@ public class BoardService {
 
     @Transactional
     public Long addBoard(BoardRequestDto boardRequestDto) {
-        Optional<Account> findUserEmail = Optional.ofNullable(accountRepository.findByEmail(boardRequestDto.getEmail()).orElseThrow(UserNotFoundException::new));
-
+        Optional<Account> findUser = Optional.ofNullable(accountRepository.findById(boardRequestDto.getAccount_id()).orElseThrow(UserNotFoundException::new));
         Board board = Board.builder()
                 .content(boardRequestDto.getContent())
                 .build();
         boardRepository.save(board);
-        findUserEmail.get().addBoard(board);
+        findUser.get().addBoard(board);
         return board.getId();
     }
 
