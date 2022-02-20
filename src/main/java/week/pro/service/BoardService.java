@@ -35,7 +35,7 @@ public class BoardService {
     }
 
     public List<Board> findBoard() {
-        List<Board> findAllBoard = boardRepository.findAll();
+        List<Board> findAllBoard = boardRepository.findAllBoard();
         return findAllBoard;
     }
 

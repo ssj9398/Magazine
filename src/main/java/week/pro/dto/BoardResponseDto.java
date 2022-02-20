@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import week.pro.domain.Account;
 import week.pro.domain.Board;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -13,18 +14,21 @@ import java.util.List;
 @NoArgsConstructor
 public class BoardResponseDto {
 
-    private Long id;
+    private Long board_id;
 
-    private String content;
-
-    private String account_email;
+    private Long account_id;
 
     private String account_name;
 
+    private String content;
+
+    private LocalDateTime time;
+
     public BoardResponseDto(Board board){
-        this.id = board.getId();
-        this.content = board.getContent();
-        this.account_email = board.getAccount().getEmail();
+        this.board_id = board.getId();
+        this.account_id = board.getAccount().getId();
         this.account_name = board.getAccount().getName();
+        this.content = board.getContent();
+        this.time = board.getModifiedAt();
     }
 }

@@ -5,9 +5,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import week.pro.domain.Board;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository<Board,Long> {
     @Query("select b from Board b where b.account.id=:id")
     Optional<Board> findByUser(@Param("id") Long id);
+
+    @Query("select distinct b from Board b left join fetch b.account")
+    List<Board> findAllBoard();
 }
