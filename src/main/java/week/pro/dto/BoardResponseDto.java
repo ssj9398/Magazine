@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import week.pro.domain.Account;
 import week.pro.domain.Board;
+import week.pro.domain.Likes;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,11 +25,14 @@ public class BoardResponseDto {
 
     private LocalDateTime time;
 
+    private int like;
+
     public BoardResponseDto(Board board){
         this.board_id = board.getId();
         this.account_id = board.getAccount().getId();
         this.account_name = board.getAccount().getName();
         this.content = board.getContent();
         this.time = board.getModifiedAt();
+        this.like = board.getLikes().size();
     }
 }
