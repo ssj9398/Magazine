@@ -1,22 +1,18 @@
 package week.pro.model;
 
-
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
+import week.pro.dto.AccountResponseDto;
 
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Fail {
+@Data
+public class GetAccount {
 
     private boolean success;
+
     private String msg;
 
-    public Fail(String msg) {
-        this.success = false;
-        this.msg = msg;
-    }
-
+    private AccountResponseDto data;
 }
-
