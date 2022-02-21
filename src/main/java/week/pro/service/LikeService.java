@@ -4,7 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import week.pro.advice.exception.BoardNotFoundException;
+import week.pro.advice.exception.LikeBoardCreateException;
+import week.pro.advice.exception.LikeNotFoundException;
 import week.pro.advice.exception.UserNotFoundException;
+import week.pro.domain.Account;
 import week.pro.domain.Board;
 import week.pro.domain.Likes;
 import week.pro.repository.AccountRepository;
@@ -25,23 +28,29 @@ public class LikeService {
     private final AccountRepository accountRepository;
 
     @Transactional
-    public Board addLike(Long boardId) {
+    public Board addLike(Long boardId, String email) {
         Optional<Board> findLikeId = Optional.ofNullable(boardRepository.findById(boardId).orElseThrow(BoardNotFoundException::new));
-        Optional<Board> byUser = Optional.ofNullable(boardRepository.findByUser(findLikeId.get().getAccount().getId()).orElseThrow(UserNotFoundException::new));
+        Optional<Account> findEmail = Optional.ofNullable(accountRepository.findEmail(email).orElseThrow(UserNotFoundException::new));
+        Optional<Likes> boardIdAndAccount = likeRepository.findByboardIdAccount(boardId, findEmail.get().getId());
 
-        Likes likes = Likes.builder()
-                .account(findLikeId.get().getAccount())
-                .board(findLikeId.get())
-                .build();
-        likeRepository.save(likes);
-        findLikeId.get().addLike(likes);
+        if(!boardIdAndAccount.isPresent()) {
+            Likes likes = Likes.builder()
+                    .account(findLikeId.get().getAccount())
+                    .board(findLikeId.get())
+                    .build();
+            likeRepository.save(likes);
+            findEmail.get().addLike(likes);
+            findLikeId.get().addLike(likes);
+        }else {
+            throw new LikeBoardCreateException();
+        }
         return findLikeId.get();
     }
 
     @Transactional
-    public void removeLike(Long boardId, Long accountId) {
-        Optional<Board> findLikeId = Optional.ofNullable(boardRepository.findById(boardId).orElseThrow(BoardNotFoundException::new));
-        Optional<Board> byUser = Optional.ofNullable(boardRepository.findByUser(accountId).orElseThrow(UserNotFoundException::new));
-        likeRepository.deleteLike(boardId, accountId);
+    public void removeLike(Long boardId, String email) {
+        Optional<Account> findEmail = Optional.ofNullable(accountRepository.findEmail(email).orElseThrow(UserNotFoundException::new));
+        Optional<Likes> boardIdAndAccount = Optional.ofNullable(likeRepository.findByboardIdAccount(boardId, findEmail.get().getId()).orElseThrow(LikeNotFoundException::new));
+        likeRepository.deleteLike(boardId, findEmail.get().getId());
     }
 }

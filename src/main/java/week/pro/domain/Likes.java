@@ -37,4 +37,9 @@ public class Likes extends Timestamped {
 
 
     }
+
+    public void setAccout(Account account) {
+        this.account = account;
+        account.getLikes().add(this);
+    }
 }
