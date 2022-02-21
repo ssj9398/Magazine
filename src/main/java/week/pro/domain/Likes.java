@@ -33,7 +33,6 @@ public class Likes extends Timestamped {
     public void setBoard(Board board) {
         this.board = board;
         board.getLikes().add(this);
-        this.account = board.getAccount();
 
 
     }

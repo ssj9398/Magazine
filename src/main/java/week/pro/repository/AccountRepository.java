@@ -10,7 +10,8 @@ import week.pro.dto.AccountResponseDto;
 import java.util.Optional;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
-    Optional<AccountResponseDto> findByEmail(String email);
+    @Query("select distinct a from Account a left join fetch a.likes where a.email =:email")
+    Optional<AccountResponseDto> findByEmail(@Param("email") String email);
 
     @EntityGraph(attributePaths = "authorities")
     Optional<Account> findOneWithAuthoritiesByEmail(String email);

@@ -33,7 +33,7 @@ public class LikeService {
         Optional<Account> findEmail = Optional.ofNullable(accountRepository.findEmail(email).orElseThrow(UserNotFoundException::new));
         Optional<Likes> boardIdAndAccount = likeRepository.findByboardIdAccount(boardId, findEmail.get().getId());
 
-        if(!boardIdAndAccount.isPresent()) {
+        if(boardIdAndAccount.isEmpty()) {
             Likes likes = Likes.builder()
                     .account(findLikeId.get().getAccount())
                     .board(findLikeId.get())
