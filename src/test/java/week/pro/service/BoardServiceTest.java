@@ -44,7 +44,7 @@ class BoardServiceTest {
         em.flush();
 
         //when
-        BoardRequestDto boardRequestDto = new BoardRequestDto("abcd@google.com","내용내용");
+        BoardRequestDto boardRequestDto = new BoardRequestDto(1L,"내용내용");
         Long findBoardId = boardService.addBoard(boardRequestDto);
         System.out.println("findBoardId"  + findBoardId);
         Optional<Board> findId = boardRepository.findById(findBoardId);
@@ -63,11 +63,11 @@ class BoardServiceTest {
         accountService.addUser(accountRequestDto);
 
         //when
-        BoardRequestDto boardRequestDto = new BoardRequestDto("abcd@google.com","내용내용");
+        BoardRequestDto boardRequestDto = new BoardRequestDto(1L,"내용내용");
         Long findBoardId = boardService.addBoard(boardRequestDto);
-        BoardRequestDto boardRequestDto2 = new BoardRequestDto("abcd@google.com","내용내용2");
+        BoardRequestDto boardRequestDto2 = new BoardRequestDto(1L,"내용내용2");
         Long findBoardId2 = boardService.addBoard(boardRequestDto2);
-        BoardRequestDto boardRequestDto3 = new BoardRequestDto("abcd@google.com","내용내용3");
+        BoardRequestDto boardRequestDto3 = new BoardRequestDto(1L,"내용내용3");
         Long findBoardId3 = boardService.addBoard(boardRequestDto3);
 
         em.flush();
@@ -84,13 +84,13 @@ class BoardServiceTest {
         AccountRequestDto accountRequestDto = new AccountRequestDto("홍길동님", "abcd@google.com", "1234");
         accountService.addUser(accountRequestDto);
 
-        BoardRequestDto boardRequestDto = new BoardRequestDto("abcd@google.com", "내용내용");
+        BoardRequestDto boardRequestDto = new BoardRequestDto(1L, "내용내용");
         Long findBoardId = boardService.addBoard(boardRequestDto);
 
-        BoardRequestDto boardRequestDto2 = new BoardRequestDto("abcd@google.com", "내용내용2");
+        BoardRequestDto boardRequestDto2 = new BoardRequestDto(1L, "내용내용2");
         Long findBoardId2 = boardService.addBoard(boardRequestDto2);
 
-        BoardRequestDto boardRequestDto3 = new BoardRequestDto("abcd@google.com", "내용내용3");
+        BoardRequestDto boardRequestDto3 = new BoardRequestDto(1L, "내용내용3");
         Long findBoardId3 = boardService.addBoard(boardRequestDto3);
 
         em.flush();
@@ -111,13 +111,13 @@ class BoardServiceTest {
         AccountRequestDto accountRequestDto = new AccountRequestDto("홍길동님", "abcd@google.com", "1234");
         accountService.addUser(accountRequestDto);
 
-        BoardRequestDto boardRequestDto = new BoardRequestDto("abcd@google.com","내용내용");
+        BoardRequestDto boardRequestDto = new BoardRequestDto(1L,"내용내용");
         Long findBoardId = boardService.addBoard(boardRequestDto);
         Optional<Board> findId = boardRepository.findById(findBoardId);
         em.flush();
         //when
 
-        BoardRequestDto boardModify = new BoardRequestDto("abcdefg@google.com","수정수정");
+        Board.BoardModify boardModify = new Board.BoardModify();
         Optional<Board> board = boardService.modifyBoard(findBoardId, boardModify);
 
         //then
@@ -129,7 +129,7 @@ class BoardServiceTest {
         AccountRequestDto accountRequestDto = new AccountRequestDto("홍길동님", "abcd@google.com", "1234");
         accountService.addUser(accountRequestDto);
 
-        BoardRequestDto boardRequestDto = new BoardRequestDto("abcd@google.com","내용내용");
+        BoardRequestDto boardRequestDto = new BoardRequestDto(1L,"내용내용");
         Long findBoardId = boardService.addBoard(boardRequestDto);
 
 

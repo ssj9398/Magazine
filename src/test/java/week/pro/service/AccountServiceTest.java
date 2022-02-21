@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import week.pro.domain.Account;
 import week.pro.dto.AccountRequestDto;
+import week.pro.dto.AccountResponseDto;
 import week.pro.repository.AccountRepository;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -67,9 +68,9 @@ class AccountServiceTest {
         em.flush();
 
         //when
-        AccountRequestDto loginRequestDto = new AccountRequestDto("홍길동님", "abcd@google.com", "1234");
-        Long loginUser = accountService.loginUser(loginRequestDto);
-        Assertions.assertThat(saveUser).isEqualTo(loginUser);
+        Account.Login login = new Account.Login("abcd@google.com", "1234");
+        AccountResponseDto accountResponseDto = accountService.loginUser(login);
+        Assertions.assertThat(saveUser).isEqualTo(accountResponseDto.getAccount_id());
 
         //then
     }
