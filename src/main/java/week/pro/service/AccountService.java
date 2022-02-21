@@ -8,10 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 import week.pro.advice.exception.UserNameDuplicateException;
 import week.pro.advice.exception.UserNotFoundException;
 import week.pro.domain.Account;
+import week.pro.domain.Authority;
 import week.pro.dto.AccountRequestDto;
 import week.pro.dto.AccountResponseDto;
 import week.pro.repository.AccountRepository;
 
+import java.util.Collections;
 import java.util.Optional;
 
 @Service
@@ -24,13 +26,20 @@ public class AccountService {
 
     @Transactional
     public Long addUser(AccountRequestDto accountRequestDto){
+
+        Authority authority = Authority.builder()
+                .authorityName("ROLE_USER")
+                .build();
+
         Account account = Account.builder()
                 .email(accountRequestDto.getAccount_email())
                 .name(accountRequestDto.getAccount_name())
                 .password(encoder.encode(accountRequestDto.getPassword()))
                 .activated(true)
+                .authorities(Collections.singleton(authority))
                 .build();
         validateDuplicateAccount(account);
+
         accountRepository.save(account);
         return account.getId();
     }

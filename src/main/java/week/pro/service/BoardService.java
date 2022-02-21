@@ -7,12 +7,15 @@ import week.pro.advice.exception.BoardNotFoundException;
 import week.pro.advice.exception.UserNotFoundException;
 import week.pro.domain.Account;
 import week.pro.domain.Board;
+import week.pro.dto.AccountResponseDto;
 import week.pro.dto.BoardRequestDto;
+import week.pro.dto.BoardResponseDto;
 import week.pro.repository.AccountRepository;
 import week.pro.repository.BoardRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,24 +26,20 @@ public class BoardService {
     private final AccountRepository accountRepository;
 
     @Transactional
-    public Long addBoard(BoardRequestDto boardRequestDto) {
-        Optional<Account> findUser = Optional.ofNullable(accountRepository.findById(boardRequestDto.getAccount_id()).orElseThrow(UserNotFoundException::new));
+    public Long addBoard(String email, BoardRequestDto boardRequestDto) {
+        Optional<Account> findUserEmail = Optional.ofNullable(accountRepository.findEmail(email).orElseThrow(UserNotFoundException::new));
         Board board = Board.builder()
                 .content(boardRequestDto.getContent())
                 .build();
         boardRepository.save(board);
-        findUser.get().addBoard(board);
+        findUserEmail.get().addBoard(board);
         return board.getId();
     }
 
-    public List<Board> findBoard() {
-        List<Board> findAllBoard = boardRepository.findAllBoard();
-        return findAllBoard;
-    }
-
-    public Optional<Board> findBoardDetail(Long boardId) {
-        Optional<Board> findBoardDetails = Optional.ofNullable(boardRepository.findById(boardId).orElseThrow(BoardNotFoundException::new));
-        return findBoardDetails;
+    public List<BoardResponseDto> findBoard() {
+        return boardRepository.findAllBoard().stream()
+                .map(BoardResponseDto::new)
+                .collect(Collectors.toList());
     }
 
     @Transactional
