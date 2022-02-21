@@ -1,5 +1,6 @@
 package week.pro.domain;
 
+import io.jsonwebtoken.Claims;
 import lombok.*;
 
 import javax.persistence.*;
@@ -35,18 +36,21 @@ public class Account extends Timestamped {
             name = "user_authority",
             joinColumns = {@JoinColumn(name = "account_id", referencedColumnName = "account_id")},
             inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
-
     private Set<Authority> authorities;
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Board> boards = new ArrayList<>();
 
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Likes> likes = new ArrayList<>();
+
     @Builder
-    public Account (String name, String email, String password, boolean activated){
+    public Account (String name, String email, String password, boolean activated, Set<Authority> authorities){
         this.name = name;
         this.email = email;
         this.password = password;
         this.activated = activated;
+        this.authorities = authorities;
     }
 
     public void addBoard(Board board) {
@@ -54,8 +58,12 @@ public class Account extends Timestamped {
         board.setAccount(this);
     }
 
+    public void addLike(Likes likes) {
+        this.likes.add(likes);
+        likes.setAccout(this);
+    }
+
     @Getter
-    @Setter
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Login{

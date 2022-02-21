@@ -1,7 +1,7 @@
 package week.pro.domain;
 
 import lombok.*;
-import week.pro.dto.BoardRequestDto;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -24,6 +24,7 @@ public class Board extends Timestamped{
     @JoinColumn(name = "account_id")
     private Account account;
 
+    @BatchSize(size = 100)
     @OneToMany(mappedBy = "board")
     private List<Likes> likes = new ArrayList<>();
 
@@ -43,10 +44,11 @@ public class Board extends Timestamped{
     public void addLike(Likes likes) {
         this.likes.add(likes);
         likes.setBoard(this);
+
     }
 
+
     @Getter
-    @Setter
     @AllArgsConstructor
     @NoArgsConstructor
     public static class BoardDetailResponse{
@@ -65,7 +67,7 @@ public class Board extends Timestamped{
 
     }
 
-    @Data
+    @Getter
     @AllArgsConstructor
     @NoArgsConstructor
     public static class BoardModify{
