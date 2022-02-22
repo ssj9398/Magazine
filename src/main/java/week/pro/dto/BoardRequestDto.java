@@ -9,7 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BoardRequestDto {
 
-    private Long account_id;
-
     private String content;
 }

@@ -16,5 +16,5 @@ public class GetBoard {
 
     private String msg;
 
-    private List<Board.BoardDetailResponse> data;
+    private Long board_id;
 }
