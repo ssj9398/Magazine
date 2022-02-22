@@ -68,7 +68,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //허용할 URI
-                .antMatchers("/swagger-ui/index.html").permitAll()
+                .antMatchers("/swagger-ui/**").permitAll()
+                .antMatchers("/swagger-resources/**").permitAll()
+                .antMatchers("/v2/api-docs").permitAll()
                 //.antMatchers("/api/signup").permitAll()
                 .antMatchers("/api/login").permitAll()
                 .antMatchers(HttpMethod.GET,"/api/board").permitAll()
