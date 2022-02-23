@@ -16,8 +16,8 @@ import java.time.format.DateTimeFormatter;
 public abstract class Timestamped {
 
     @CreatedDate
-    private String createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+    private LocalDateTime createdAt;
 
     @LastModifiedDate
-    private String modifiedAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+    private LocalDateTime modifiedAt;
 }

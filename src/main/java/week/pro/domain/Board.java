@@ -5,6 +5,7 @@ import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +62,7 @@ public class Board extends Timestamped{
 
         private String content;
 
-        private String time;
+        private LocalDateTime time;
 
         public BoardDetailResponse(Board board){
             this.board_id = board.getId();

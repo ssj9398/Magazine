@@ -75,6 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.antMatchers("/api/signup").permitAll()
                 .antMatchers("/api/login").permitAll()
                 .antMatchers(HttpMethod.GET,"/api/board").permitAll()
+                .antMatchers(HttpMethod.GET,"/api/boards").permitAll()
                 .antMatchers("/api/register").permitAll()
 
                 //나머지 요청에 대해선 인증을 받아야 한다.

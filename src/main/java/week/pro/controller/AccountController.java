@@ -42,7 +42,7 @@ public class AccountController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<GetAccount> UserLogin(@Valid @RequestBody Account.Login login, Principal principal){
+    public ResponseEntity<GetAccount> UserLogin(@Valid @RequestBody Account.Login login){
 //        System.out.println("principal" + principal.getName());
 //        if(principal != null){
 //            throw new ApiRequestException("이미 로그인 되어있습니다.");
