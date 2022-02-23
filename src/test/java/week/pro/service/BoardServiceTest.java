@@ -11,7 +11,7 @@
 //import week.pro.dto.AccountRequestDto;
 //import week.pro.dto.BoardRequestDto;
 //import week.pro.repository.AccountRepository;
-//import week.pro.repository.BoardRepository;
+//import week.pro.repository.board.BoardRepository;
 //
 //import javax.persistence.EntityManager;
 //import java.util.List;

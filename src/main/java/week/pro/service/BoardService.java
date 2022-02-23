@@ -7,11 +7,10 @@ import week.pro.advice.exception.BoardNotFoundException;
 import week.pro.advice.exception.UserNotFoundException;
 import week.pro.domain.Account;
 import week.pro.domain.Board;
-import week.pro.dto.AccountResponseDto;
 import week.pro.dto.BoardRequestDto;
 import week.pro.dto.BoardResponseDto;
 import week.pro.repository.AccountRepository;
-import week.pro.repository.BoardRepository;
+import week.pro.repository.board.BoardRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +29,7 @@ public class BoardService {
         Optional<Account> findUserEmail = Optional.ofNullable(accountRepository.findEmail(email).orElseThrow(UserNotFoundException::new));
         Board board = Board.builder()
                 .content(boardRequestDto.getContent())
+                .img_url(boardRequestDto.getImg_url())
                 .build();
         boardRepository.save(board);
         findUserEmail.get().addBoard(board);

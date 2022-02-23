@@ -11,7 +11,7 @@ import week.pro.domain.Account;
 import week.pro.domain.Board;
 import week.pro.domain.Likes;
 import week.pro.repository.AccountRepository;
-import week.pro.repository.BoardRepository;
+import week.pro.repository.board.BoardRepository;
 import week.pro.repository.LikeRepository;
 
 import java.util.Optional;

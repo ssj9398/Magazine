@@ -10,4 +10,6 @@ import lombok.NoArgsConstructor;
 public class BoardRequestDto {
 
     private String content;
+
+    private String img_url;
 }

@@ -13,7 +13,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.filter.CorsFilter;
+
+import week.pro.CorsFilter;
 import week.pro.jwt.JwtAccessDeniedHandler;
 import week.pro.jwt.JwtAuthenticationEntryPoint;
 import week.pro.jwt.JwtSecurityConfig;
@@ -74,6 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.antMatchers("/api/signup").permitAll()
                 .antMatchers("/api/login").permitAll()
                 .antMatchers(HttpMethod.GET,"/api/board").permitAll()
+                .antMatchers(HttpMethod.GET,"/api/boards").permitAll()
                 .antMatchers("/api/register").permitAll()
 
                 //나머지 요청에 대해선 인증을 받아야 한다.

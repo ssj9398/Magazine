@@ -1,5 +1,6 @@
 package week.pro.dto;
 
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BoardResponseDto {
+public class BoardPageResponseDto {
 
     private Long board_id;
 
@@ -32,7 +33,8 @@ public class BoardResponseDto {
 
     private int like_cnt;
 
-    public BoardResponseDto(Board board){
+    @QueryProjection
+    public BoardPageResponseDto(Board board){
         this.board_id = board.getId();
         this.image_url = board.getImg_url();
         this.account_id = board.getAccount().getId();

@@ -1,10 +1,8 @@
 package week.pro.domain;
 
-import io.jsonwebtoken.Claims;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -21,7 +19,6 @@ public class Account extends Timestamped {
     @Column(name = "account_name")
     private String name;
 
-    @Email
     @Column(name = "account_email")
     private String email;
 

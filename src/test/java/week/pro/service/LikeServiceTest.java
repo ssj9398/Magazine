@@ -9,7 +9,7 @@
 //import week.pro.domain.Likes;
 //import week.pro.dto.AccountRequestDto;
 //import week.pro.dto.BoardRequestDto;
-//import week.pro.repository.BoardRepository;
+//import week.pro.repository.board.BoardRepository;
 //import week.pro.repository.LikeRepository;
 //
 //import javax.persistence.EntityManager;
