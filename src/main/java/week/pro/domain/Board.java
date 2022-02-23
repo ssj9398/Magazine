@@ -20,6 +20,8 @@ public class Board extends Timestamped{
     @Lob
     private String content;
 
+    private String img_url;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
     private Account account;
@@ -29,8 +31,9 @@ public class Board extends Timestamped{
     private List<Likes> likes = new ArrayList<>();
 
     @Builder
-    public Board(String content){
+    public Board(String content, String img_url){
         this.content = content;
+        this.img_url = img_url;
     }
 
     public void setAccount(Account account) {
@@ -39,6 +42,7 @@ public class Board extends Timestamped{
 
     public void updateBoard(BoardModify boardModify){
         this.content = boardModify.getContent();
+        this.img_url = boardModify.getImg_url();
     }
 
     public void addLike(Likes likes) {
@@ -57,7 +61,7 @@ public class Board extends Timestamped{
 
         private String content;
 
-        private LocalDateTime time;
+        private String time;
 
         public BoardDetailResponse(Board board){
             this.board_id = board.getId();
@@ -72,5 +76,6 @@ public class Board extends Timestamped{
     @NoArgsConstructor
     public static class BoardModify{
         private String content;
+        private String img_url;
     }
 }

@@ -13,7 +13,7 @@ public interface BoardRepository extends JpaRepository<Board,Long> {
     @Query("select b from Board b where b.account.id=:id")
     Optional<Board> findByUser(@Param("id") Long id);
 
-    @Cacheable("boards")
+    //@Cacheable("boards")
     @Query("select distinct b from Board b left join fetch b.account")
     List<Board> findAllBoard();
 }

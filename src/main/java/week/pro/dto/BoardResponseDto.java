@@ -17,18 +17,21 @@ public class BoardResponseDto {
 
     private Long board_id;
 
+    private String img_url;
+
     private Long account_id;
 
     private String account_name;
 
     private String content;
 
-    private LocalDateTime time;
+    private String time;
 
     private int like;
 
     public BoardResponseDto(Board board){
         this.board_id = board.getId();
+        this.img_url = board.getImg_url();
         this.account_id = board.getAccount().getId();
         this.account_name = board.getAccount().getName();
         this.content = board.getContent();

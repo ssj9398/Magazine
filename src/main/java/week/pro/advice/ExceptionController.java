@@ -38,4 +38,12 @@ public class ExceptionController {
     public ResponseEntity<Fail> LikeNotFoundException(LikeNotFoundException e) {
         return new ResponseEntity<>(new Fail("게시글 좋아요를 삭제 할 수 없습니다."), HttpStatus.OK);
     }
+
+    @ExceptionHandler(value = {ApiRequestException.class})
+    public ResponseEntity<Fail> handle(ApiRequestException e){
+        Fail fail = Fail.builder()
+                .msg(e.getMessage())
+                .build();
+        return new ResponseEntity<>(fail, HttpStatus.BAD_REQUEST);
+    }
 }

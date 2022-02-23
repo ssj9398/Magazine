@@ -30,6 +30,7 @@ public class BoardService {
         Optional<Account> findUserEmail = Optional.ofNullable(accountRepository.findEmail(email).orElseThrow(UserNotFoundException::new));
         Board board = Board.builder()
                 .content(boardRequestDto.getContent())
+                .img_url(boardRequestDto.getImg_url())
                 .build();
         boardRepository.save(board);
         findUserEmail.get().addBoard(board);
