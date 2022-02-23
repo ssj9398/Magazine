@@ -8,6 +8,7 @@ import week.pro.domain.Board;
 import week.pro.dto.BoardRequestDto;
 import week.pro.dto.BoardResponseDto;
 import week.pro.model.GetAllBoard;
+import week.pro.model.GetBoard;
 import week.pro.model.Success;
 import week.pro.service.BoardService;
 
@@ -22,9 +23,9 @@ public class BoardController {
     private final BoardService boardService;
 
     @PostMapping("/board")
-    public ResponseEntity<Success> boardAdd(Principal Principal, @RequestBody BoardRequestDto boardRequestDto){
-        boardService.addBoard(Principal.getName(),boardRequestDto);
-        return new ResponseEntity<>(new Success(true,"게시글 등록 성공"), HttpStatus.OK);
+    public ResponseEntity<GetBoard> boardAdd(Principal Principal, @RequestBody BoardRequestDto boardRequestDto){
+        Long oneBoard = boardService.addBoard(Principal.getName(), boardRequestDto);
+        return new ResponseEntity<>(new GetBoard(true,"게시글 등록 성공",oneBoard), HttpStatus.OK);
     }
 
     @GetMapping("/board")
