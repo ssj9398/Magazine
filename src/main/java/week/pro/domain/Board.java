@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -27,10 +29,16 @@ public class Board extends Timestamped{
     @JoinColumn(name = "account_id")
     private Account account;
 
+    @OneToMany(mappedBy = "board")
+    private List<Likes> likes= new ArrayList<>();
+
+    private String layout;
+
     @Builder
-    public Board(String contents, String img_url, Account account){
+    public Board(String contents, String img_url, Account account, String layout){
         this.contents = contents;
         this.img_url = img_url;
         this.account = account;
+        this.layout = layout;
     }
 }
