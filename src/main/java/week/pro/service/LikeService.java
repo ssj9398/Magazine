@@ -39,4 +39,11 @@ public class LikeService {
             throw new ApiRequestException("좋아요 등록 실패");
         }
     }
+
+    @Transactional
+    public void removeLike(Long boardId, String email){
+        Optional<Account> findAccountId = accountRepository.findByEmail(email);
+        Optional<Likes> findLikeId = likeRepository.findByBoardAndEmail(boardId, findAccountId.get().getId());
+        likeRepository.deleteById(findLikeId.get().getId());
+    }
 }
