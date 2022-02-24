@@ -11,6 +11,7 @@ import week.pro.repository.AccountRepository;
 import week.pro.repository.BoardRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -34,6 +35,13 @@ public class BoardService {
         return allBoard.stream()
                 .map(BoardResponseDto::new)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public Optional<Board> modifyBoard(Long boardId, BoardRequestDto.BoardModify boardModify){
+        Optional<Board> boardOne = boardRepository.findById(boardId);
+        boardOne.get().updateBoard(boardModify);
+        return boardOne;
     }
 
 }

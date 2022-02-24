@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import week.pro.dto.BoardRequestDto;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -40,5 +41,11 @@ public class Board extends Timestamped{
         this.img_url = img_url;
         this.account = account;
         this.layout = layout;
+    }
+
+    public void updateBoard(BoardRequestDto.BoardModify boardModify) {
+        this.contents = boardModify.getContent();
+        this.layout = boardModify.getLayout();
+        this.img_url = boardModify.getImg_url();
     }
 }

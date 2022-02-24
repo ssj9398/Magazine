@@ -1,5 +1,6 @@
 package week.pro.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,5 +31,13 @@ public class BoardRequestDto {
                 .contents(boardRequestDto.content)
                 .layout(boardRequestDto.getLayout())
                 .build();
+    }
+
+    @Getter
+    @NoArgsConstructor
+    public static class BoardModify{
+        private String content;
+        private String img_url;
+        private String layout;
     }
 }
