@@ -44,4 +44,9 @@ public class BoardService {
         return boardOne;
     }
 
+    @Transactional
+    public void removeBoard(Long boardId){
+        boardRepository.deleteById(boardId);
+    }
+
 }
