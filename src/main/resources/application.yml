@@ -12,10 +12,11 @@ spring:
     password: 1q2w3e4r
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
+        default_batch_fetch_size: 100
     database: MYSQL
 
 logging:
