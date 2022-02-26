@@ -42,9 +42,12 @@ public class LikeService {
     }
 
     @Transactional
-    public void removeLike(Long boardId, String email){
-        Optional<Account> findAccountId = accountRepository.findByEmail(email);
-        Optional<Likes> findLikeId = likeRepository.findByBoardAndEmail(boardId, findAccountId.get().getId());
+    public void removeLike(Long boardId, Long accountId){
+        Optional<Account> findAccountId = accountRepository.findById(accountId);
+        Optional<Likes> findLikeId = likeRepository.findByBoardAndEmail(boardId, accountId);
+        if(findLikeId.isEmpty()){
+            throw new ApiRequestException("좋아요 삭제 실패");
+        }
         likeRepository.deleteById(findLikeId.get().getId());
     }
 }
