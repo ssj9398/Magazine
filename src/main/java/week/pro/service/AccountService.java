@@ -29,28 +29,47 @@ public class AccountService {
     private final JwtTokenProvider jwtTokenProvider;
 
     @Transactional
-    public void addUser(RegisterRequestDto registerRequestDto){
-        Account account = Account.builder()
-                .name(registerRequestDto.getAccount_name())
-                .password(passwordEncoder.encode(registerRequestDto.getPassword()))
-                .email(registerRequestDto.getAccount_email())
-                .build();
-        accountRepository.save(account);
+    public void addUser(RegisterRequestDto registerRequestDto, Account account) {
+        accountvalidation(registerRequestDto, account);
+        Optional<Account> findUserByEmail = accountRepository.findByEmail(registerRequestDto.getAccount_email());
+        if (findUserByEmail.isEmpty()) {
+            account = Account.builder()
+                    .name(registerRequestDto.getAccount_name())
+                    .password(passwordEncoder.encode(registerRequestDto.getPassword()))
+                    .email(registerRequestDto.getAccount_email())
+                    .build();
+            accountRepository.save(account);
+        } else
+            throw new ApiRequestException("이미 존재하는 사용자 입니다.");
     }
 
-    public LoginResponseDto loginUser(LoginRequestDto loginRequestDto) {
-        if(!Objects.equals(loginRequestDto.getPassword(), loginRequestDto.getCheck_password())||loginRequestDto.getPassword().contains(loginRequestDto.getAccount_name())){
-            throw new ApiRequestException("비밀번호 조건을 맞춰주세요.");
+    public LoginResponseDto loginUser(RegisterRequestDto registerRequestDto, Account account) {
+        accountvalidation(registerRequestDto, account);
+        Optional<Account> findUserByEmail = accountRepository.findByEmail(registerRequestDto.getAccount_email());
+        if (findUserByEmail.isEmpty()) {
+            throw new ApiRequestException("존재 하지 않는 사용자 입니다.");
+        } else if (!passwordEncoder.matches(registerRequestDto.getPassword(), findUserByEmail.get().getPassword())) {
+            throw new ApiRequestException("비밀번호 틀림");
         }
-        if(!Pattern.matches("^[a-zA-Z0-9]{3,}$", loginRequestDto.getAccount_name())){
-            throw new ApiRequestException("닉네임 조건을 맞춰주세요.");
-        }
-        String token = jwtTokenProvider.createToken(loginRequestDto.getAccount_email());
-        LoginResponseDto loginResponseDto = accountRepository.login(loginRequestDto);
+
+        String token = jwtTokenProvider.createToken(registerRequestDto.getAccount_email());
+        LoginResponseDto loginResponseDto = accountRepository.login(registerRequestDto.getAccount_email());
         loginResponseDto.setToken(token);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Authorization", "Bearer " + token);
         return loginResponseDto;
+    }
 
+    public void accountvalidation(RegisterRequestDto registerRequestDto, Account account) {
+        if (account != null) {
+            throw new ApiRequestException("이미 로그인 되있음");
+        } else if (Objects.equals(registerRequestDto.getPassword(), registerRequestDto.getCheck_password()) ||
+                registerRequestDto.getPassword().contains(registerRequestDto.getAccount_name())||
+        registerRequestDto.getPassword().length()<4) {
+            throw new ApiRequestException("비밀번호 조건을 맞춰주세요.");
+        } else if (!Pattern.matches("^[a-zA-Z0-9]{3,}$", registerRequestDto.getAccount_name())||
+        registerRequestDto.getAccount_name().length()<3) {
+            throw new ApiRequestException("닉네임 조건을 맞춰주세요.");
+        }
     }
 }
