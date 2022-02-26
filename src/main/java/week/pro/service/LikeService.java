@@ -25,10 +25,11 @@ public class LikeService {
     private final AccountRepository accountRepository;
 
     @Transactional
-    public void addLike(Long boardId, String email){
+    public void addLike(Long boardId, Long accountId){
         Optional<Board> findBoardId = boardRepository.findById(boardId);
-        Optional<Account> findAccountId = accountRepository.findByEmail(email);
-        Optional<Likes> findLikeId = likeRepository.findByBoardAndEmail(boardId, findAccountId.get().getId());
+        Optional<Account> findAccountId = accountRepository.findById(accountId);
+        Optional<Likes> findLikeId = likeRepository.findByBoardAndEmail(boardId, accountId);
+
         if(findLikeId.isEmpty()){
             Likes likes = Likes.builder()
                     .account(findAccountId.get())
