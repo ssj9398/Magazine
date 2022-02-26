@@ -26,13 +26,13 @@ public class AccountController {
     public ResponseEntity<GetLogin> login(@RequestBody RegisterRequestDto registerRequestDto,
                                           @AuthenticationPrincipal Account account) {
         LoginResponseDto loginResponseDto = accountService.loginUser(registerRequestDto, account);
-        return new ResponseEntity<>(new GetLogin(true,"로그인 성공",loginResponseDto),HttpStatus.OK);
+        return new ResponseEntity<>(new GetLogin(true, "로그인 성공", loginResponseDto), HttpStatus.OK);
     }
 
     @PostMapping("/register")
     public ResponseEntity<Success> UserAdd(@RequestBody RegisterRequestDto registerRequestDto,
-                                           @AuthenticationPrincipal Account account){
+                                           @AuthenticationPrincipal Account account) {
         accountService.addUser(registerRequestDto, account);
-        return new ResponseEntity<>(new Success(true,"회원 가입 완료"), HttpStatus.OK);
+        return new ResponseEntity<>(new Success(true, "회원 가입 완료"), HttpStatus.OK);
     }
 }

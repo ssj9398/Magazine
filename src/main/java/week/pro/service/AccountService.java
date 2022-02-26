@@ -51,7 +51,6 @@ public class AccountService {
         } else if (!passwordEncoder.matches(registerRequestDto.getPassword(), findUserByEmail.get().getPassword())) {
             throw new ApiRequestException("비밀번호 틀림");
         }
-
         String token = jwtTokenProvider.createToken(registerRequestDto.getAccount_email());
         LoginResponseDto loginResponseDto = accountRepository.login(registerRequestDto.getAccount_email());
         loginResponseDto.setToken(token);
@@ -61,15 +60,20 @@ public class AccountService {
     }
 
     public void accountvalidation(RegisterRequestDto registerRequestDto, Account account) {
+        String emailPattern = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$";
         if (account != null) {
             throw new ApiRequestException("이미 로그인 되있음");
-        } else if (Objects.equals(registerRequestDto.getPassword(), registerRequestDto.getCheck_password()) ||
-                registerRequestDto.getPassword().contains(registerRequestDto.getAccount_name())||
-        registerRequestDto.getPassword().length()<4) {
+        } else if (!Objects.equals(registerRequestDto.getPassword(), registerRequestDto.getPassword_check()) ||
+                registerRequestDto.getPassword().contains(registerRequestDto.getAccount_name()) ||
+                registerRequestDto.getPassword().length() < 4) {
             throw new ApiRequestException("비밀번호 조건을 맞춰주세요.");
-        } else if (!Pattern.matches("^[a-zA-Z0-9]{3,}$", registerRequestDto.getAccount_name())||
-        registerRequestDto.getAccount_name().length()<3) {
+        } else if (!Pattern.matches("^[a-zA-Z0-9]{3,}$", registerRequestDto.getAccount_name()) ||
+                registerRequestDto.getAccount_name().length() < 3) {
             throw new ApiRequestException("닉네임 조건을 맞춰주세요.");
         }
+        else if(!Pattern.matches(emailPattern, registerRequestDto.getAccount_email())) {
+            throw new ApiRequestException("올바른 이메일 형식이 아닙니다.");
+        }
+
     }
 }

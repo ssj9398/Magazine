@@ -47,7 +47,8 @@ public class LikeService {
         Optional<Likes> findLikeId = likeRepository.findByBoardAndEmail(boardId, accountId);
         if(findLikeId.isEmpty()){
             throw new ApiRequestException("좋아요 삭제 실패");
+        }else {
+            likeRepository.deleteById(findLikeId.get().getId());
         }
-        likeRepository.deleteById(findLikeId.get().getId());
     }
 }

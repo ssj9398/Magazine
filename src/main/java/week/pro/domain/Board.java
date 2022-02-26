@@ -30,7 +30,7 @@ public class Board extends Timestamped{
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Likes> likes= new ArrayList<>();
 
     private String layout;

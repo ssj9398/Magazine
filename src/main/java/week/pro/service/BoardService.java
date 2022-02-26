@@ -7,7 +7,6 @@ import week.pro.domain.Account;
 import week.pro.domain.Board;
 import week.pro.dto.BoardRequestDto;
 import week.pro.dto.BoardResponseDto;
-import week.pro.repository.AccountRepository;
 import week.pro.repository.BoardRepository;
 
 import java.util.List;
@@ -21,8 +20,6 @@ import java.util.stream.Collectors;
 public class BoardService {
 
     private final BoardRepository boardRepository;
-
-    private final AccountRepository accountRepository;
 
     @Transactional
     public Long addBoard(Account account, BoardRequestDto boardRequestDto){

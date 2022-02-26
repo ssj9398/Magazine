@@ -2,12 +2,14 @@ package week.pro.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class RegisterRequestDto {
 
@@ -24,5 +26,5 @@ public class RegisterRequestDto {
 
     @NotBlank(message = "비밀번호를 4자 이상 입력해 주세요.")
     @Size(min = 4)
-    private String check_password;
+    private String password_check;
 }
