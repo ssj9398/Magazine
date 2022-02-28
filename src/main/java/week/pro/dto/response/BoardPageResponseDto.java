@@ -1,5 +1,7 @@
-package week.pro.dto;
+package week.pro.dto.response;
 
+import com.querydsl.core.annotations.QueryProjection;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import week.pro.domain.Board;
@@ -7,8 +9,9 @@ import week.pro.domain.Board;
 import java.time.LocalDateTime;
 
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
-public class BoardResponseDto {
+public class BoardPageResponseDto {
 
     private Long board_id;
 
@@ -18,22 +21,23 @@ public class BoardResponseDto {
 
     private String account_name;
 
-    private String contents;
+    private String content;
 
-    private LocalDateTime insert_dt;
+    private LocalDateTime time;
 
-    private String layout;
+    private String board_status;
 
     private int like_cnt;
 
-    public BoardResponseDto(Board board){
+    @QueryProjection
+    public BoardPageResponseDto(Board board){
         this.board_id = board.getId();
         this.image_url = board.getImg_url();
         this.account_id = board.getAccount().getId();
         this.account_name = board.getAccount().getName();
-        this.contents = board.getContents();
-        this.insert_dt = board.getModifiedAt();
+        this.content = board.getContents();
+        this.time = board.getModifiedAt();
         this.like_cnt = board.getLikes().size();
-        this.layout= board.getLayout();
+        this.board_status= board.getBoard_status();
     }
 }

@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
-import week.pro.dto.BoardPageResponseDto;
-
-import java.util.List;
+import week.pro.dto.response.BoardPageResponseDto;
 
 @AllArgsConstructor
 @NoArgsConstructor

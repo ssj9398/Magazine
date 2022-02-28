@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import week.pro.domain.Account;
-import week.pro.dto.LoginResponseDto;
+import week.pro.dto.response.LoginResponseDto;
 
 import java.util.Optional;
 

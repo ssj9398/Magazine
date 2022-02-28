@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import week.pro.dto.BoardRequestDto;
+import week.pro.dto.request.BoardRequestDto;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -33,19 +33,19 @@ public class Board extends Timestamped{
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Likes> likes= new ArrayList<>();
 
-    private String layout;
+    private String board_status;
 
     @Builder
-    public Board(String contents, String img_url, Account account, String layout){
+    public Board(String contents, String img_url, Account account, String board_status){
         this.contents = contents;
         this.img_url = img_url;
         this.account = account;
-        this.layout = layout;
+        this.board_status = board_status;
     }
 
-    public void updateBoard(BoardRequestDto.BoardModify boardModify) {
-        this.contents = boardModify.getContent();
-        this.layout = boardModify.getLayout();
-        this.img_url = boardModify.getImg_url();
+    public void updateBoard(BoardRequestDto boardRequestDto) {
+        this.contents = boardRequestDto.getContent();
+        this.board_status = boardRequestDto.getBoard_status();
+        this.img_url = boardRequestDto.getImg_url();
     }
 }

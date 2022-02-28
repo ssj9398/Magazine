@@ -6,8 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import week.pro.domain.QAccount;
-import week.pro.dto.BoardPageResponseDto;
-import week.pro.dto.QBoardPageResponseDto;
+import week.pro.dto.response.BoardPageResponseDto;
+import week.pro.dto.response.QBoardPageResponseDto;
 
 import java.util.List;
 

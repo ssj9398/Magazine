@@ -1,4 +1,4 @@
-package week.pro.dto;
+package week.pro.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

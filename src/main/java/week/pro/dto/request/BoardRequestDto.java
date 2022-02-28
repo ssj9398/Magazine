@@ -1,4 +1,4 @@
-package week.pro.dto;
+package week.pro.dto.request;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -14,13 +14,13 @@ public class BoardRequestDto {
 
     private String img_url;
 
-    private String layout;
+    private String board_status;
 
     @Builder
-    public BoardRequestDto(String content, String img_url, String layout){
+    public BoardRequestDto(String content, String img_url, String board_status){
         this.content = content;
         this.img_url = img_url;
-        this.layout = layout;
+        this.board_status = board_status;
     }
 
     public static Board toEntity(BoardRequestDto boardRequestDto, Account account){
@@ -28,7 +28,7 @@ public class BoardRequestDto {
                 .img_url(boardRequestDto.getImg_url())
                 .account(account)
                 .contents(boardRequestDto.content)
-                .layout(boardRequestDto.getLayout())
+                .board_status(boardRequestDto.getBoard_status())
                 .build();
     }
 
@@ -37,6 +37,6 @@ public class BoardRequestDto {
     public static class BoardModify{
         private String content;
         private String img_url;
-        private String layout;
+        private String board_status;
     }
 }

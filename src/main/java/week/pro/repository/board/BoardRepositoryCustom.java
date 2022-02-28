@@ -2,7 +2,7 @@ package week.pro.repository.board;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import week.pro.dto.BoardPageResponseDto;
+import week.pro.dto.response.BoardPageResponseDto;
 
 public interface BoardRepositoryCustom {
 

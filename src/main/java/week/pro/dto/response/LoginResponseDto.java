@@ -1,4 +1,4 @@
-package week.pro.dto;
+package week.pro.dto.response;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,14 +21,14 @@ public class LoginResponseDto {
 
     private String token;
 
-    private List<LikeResponseDto> like_board;
+    private List<BoardLikeResponseDto> like_board;
 
     public LoginResponseDto(Account account){
         this.account_id = account.getId();
         this.account_email = account.getEmail();
         this.account_name = account.getName();
         this.like_board = account.getLikes().stream()
-                .map(LikeResponseDto::new)
+                .map(BoardLikeResponseDto::new)
                 .collect(Collectors.toList());
     }
 }

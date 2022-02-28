@@ -3,7 +3,7 @@ package week.pro.advice;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import week.pro.dto.LoginResponseDto;
+import week.pro.dto.response.LoginResponseDto;
 
 @AllArgsConstructor
 @NoArgsConstructor

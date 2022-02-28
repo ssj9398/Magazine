@@ -3,7 +3,7 @@ package week.pro.advice;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import week.pro.dto.BoardResponseDto;
+import week.pro.dto.response.BoardResponseDto;
 
 import java.util.List;
 

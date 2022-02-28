@@ -1,4 +1,4 @@
-package week.pro.dto;
+package week.pro.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,11 +8,11 @@ import week.pro.domain.Likes;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LikeResponseDto {
+public class BoardLikeResponseDto {
 
     private Long board_id;
 
-    public LikeResponseDto(Likes likes) {
+    public BoardLikeResponseDto(Likes likes) {
         this.board_id = likes.getBoard().getId();
     }
 }

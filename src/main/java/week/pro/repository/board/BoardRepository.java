@@ -1,4 +1,4 @@
-package week.pro.repository;
+package week.pro.repository.board;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
