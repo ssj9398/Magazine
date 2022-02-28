@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import week.pro.advice.exception.ApiRequestException;
 import week.pro.domain.Account;
-import week.pro.dto.LoginRequestDto;
-import week.pro.dto.LoginResponseDto;
-import week.pro.dto.RegisterRequestDto;
+import week.pro.dto.request.LoginRequestDto;
+import week.pro.dto.response.LoginResponseDto;
+import week.pro.dto.request.RegisterRequestDto;
 import week.pro.jwt.JwtTokenProvider;
 import week.pro.repository.AccountRepository;
 
@@ -43,17 +43,16 @@ public class AccountService {
             throw new ApiRequestException("이미 존재하는 사용자 입니다.");
     }
 
-    public LoginResponseDto loginUser(RegisterRequestDto registerRequestDto, Account account) {
-        accountvalidation(registerRequestDto, account);
-        Optional<Account> findUserByEmail = accountRepository.findByEmail(registerRequestDto.getAccount_email());
+    public LoginResponseDto loginUser(LoginRequestDto loginRequestDto, Account account) {
+        Optional<Account> findUserByEmail = accountRepository.findByEmail(loginRequestDto.getAccount_email());
         if (findUserByEmail.isEmpty()) {
             throw new ApiRequestException("존재 하지 않는 사용자 입니다.");
-        } else if (!passwordEncoder.matches(registerRequestDto.getPassword(), findUserByEmail.get().getPassword())) {
+        } else if (!passwordEncoder.matches(loginRequestDto.getPassword(), findUserByEmail.get().getPassword())) {
             throw new ApiRequestException("비밀번호 틀림");
         }
-        String token = jwtTokenProvider.createToken(registerRequestDto.getAccount_email());
-        LoginResponseDto loginResponseDto = accountRepository.login(registerRequestDto.getAccount_email());
-        loginResponseDto.setToken(token);
+        String token = jwtTokenProvider.createToken(loginRequestDto.getAccount_email());
+        LoginResponseDto loginResponseDto = accountRepository.login(loginRequestDto.getAccount_email());
+        loginResponseDto.setToken("Bearer "+token);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Authorization", "Bearer " + token);
         return loginResponseDto;

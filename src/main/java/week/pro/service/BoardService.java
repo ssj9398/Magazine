@@ -27,10 +27,6 @@ public class BoardService {
 
     @Transactional
     public Long addBoard(Account account, BoardRequestDto boardRequestDto){
-        System.out.println("account = " + account);
-//        if(account.getEmail().isEmpty()) {
-//            throw new ApiRequestException("토큰이 존재하지 않거나 만료된 토큰입니다.");
-//        }
             Long boardId = boardRepository.save(BoardRequestDto.toEntity(boardRequestDto, account)).getId();
         return boardId;
     }
@@ -43,10 +39,10 @@ public class BoardService {
     }
 
     @Transactional
-    public Optional<Board> modifyBoard(Long boardId, BoardRequestDto.BoardModify boardModify, Long accountId){
+    public Optional<Board> modifyBoard(Long boardId, BoardRequestDto boardRequestDto, Long accountId){
         boardValidation(boardId,accountId);
         Optional<Board> boardOne = boardRepository.findById(boardId);
-        boardOne.get().updateBoard(boardModify);
+        boardOne.get().updateBoard(boardRequestDto);
         return boardOne;
     }
 

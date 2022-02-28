@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 import week.pro.advice.GetLogin;
 import week.pro.advice.Success;
 import week.pro.domain.Account;
-import week.pro.dto.LoginResponseDto;
-import week.pro.dto.RegisterRequestDto;
+import week.pro.dto.request.LoginRequestDto;
+import week.pro.dto.response.LoginResponseDto;
+import week.pro.dto.request.RegisterRequestDto;
+import week.pro.jwt.UserDetailsImpl;
 import week.pro.service.AccountService;
 
 @RestController
@@ -23,9 +25,9 @@ public class AccountController {
     private final AccountService accountService;
 
     @PostMapping("/login")
-    public ResponseEntity<GetLogin> login(@RequestBody RegisterRequestDto registerRequestDto,
+    public ResponseEntity<GetLogin> login(@RequestBody LoginRequestDto loginRequestDto,
                                           @AuthenticationPrincipal Account account) {
-        LoginResponseDto loginResponseDto = accountService.loginUser(registerRequestDto, account);
+        LoginResponseDto loginResponseDto = accountService.loginUser(loginRequestDto, account);
         return new ResponseEntity<>(new GetLogin(true, "로그인 성공", loginResponseDto), HttpStatus.OK);
     }
 

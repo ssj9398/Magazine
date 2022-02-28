@@ -29,7 +29,6 @@ public class BoardController {
     @PostMapping("/board")
     public ResponseEntity<GetBoard> boardAdd(@RequestBody BoardRequestDto boardRequestDto,
                                              @AuthenticationPrincipal UserDetailsImpl account){
-        System.out.println("account.getUser()" + account.getUser());
         Long oneBoard = boardService.addBoard(account.getUser(), boardRequestDto);
         return new ResponseEntity<>(new GetBoard(true,"게시글 등록 성공",oneBoard), HttpStatus.OK);
     }
@@ -48,9 +47,9 @@ public class BoardController {
 
     @PutMapping("/board/{boardId}")
     public ResponseEntity<Success> boardModify(@PathVariable Long boardId,
-                                               @RequestBody BoardRequestDto.BoardModify boardModify,
+                                               @RequestBody BoardRequestDto boardRequestDto,
                                                @AuthenticationPrincipal UserDetailsImpl account){
-        boardService.modifyBoard(boardId, boardModify, account.getUser().getId());
+        boardService.modifyBoard(boardId, boardRequestDto, account.getUser().getId());
         return new ResponseEntity<>(new Success(true,"게시글 수정 성공"),HttpStatus.OK);
     }
 
