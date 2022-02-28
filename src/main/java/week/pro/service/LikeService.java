@@ -8,7 +8,7 @@ import week.pro.domain.Account;
 import week.pro.domain.Board;
 import week.pro.domain.Likes;
 import week.pro.repository.AccountRepository;
-import week.pro.repository.BoardRepository;
+import week.pro.repository.board.BoardRepository;
 import week.pro.repository.LikeRepository;
 
 import java.util.Optional;
@@ -26,7 +26,8 @@ public class LikeService {
 
     @Transactional
     public void addLike(Long boardId, Long accountId){
-        Optional<Board> findBoardId = boardRepository.findById(boardId);
+        Optional<Board> findBoardId = Optional.ofNullable(boardRepository.findById(boardId)
+                .orElseThrow(() -> new ApiRequestException("게시글이 존재하지 않습니다.")));
         Optional<Account> findAccountId = accountRepository.findById(accountId);
         Optional<Likes> findLikeId = likeRepository.findByBoardAndEmail(boardId, accountId);
 
