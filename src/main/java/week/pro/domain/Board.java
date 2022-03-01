@@ -24,6 +24,7 @@ public class Board extends Timestamped{
     private String contents;
 
     @Column(nullable = false)
+    @Lob
     private String img_url;
 
     @ManyToOne(fetch = FetchType.LAZY)
