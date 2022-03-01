@@ -75,4 +75,10 @@ public class AccountService {
         }
 
     }
+
+    public LoginResponseDto findUser(String email) {
+        LoginResponseDto loginResponseDto = accountRepository.login(email);
+        System.out.println("loginResponseDto = " + loginResponseDto);
+        return loginResponseDto;
+    }
 }
