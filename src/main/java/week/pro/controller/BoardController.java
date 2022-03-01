@@ -3,6 +3,7 @@ package week.pro.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -40,7 +41,7 @@ public class BoardController {
     }
 
     @GetMapping("/boardPaging")
-    public ResponseEntity<GetBoardPage> BoardPaging(Pageable pageable){
+    public ResponseEntity<GetBoardPage> BoardPaging(@PageableDefault(size=5) Pageable pageable){
         Page<BoardPageResponseDto> boardPaging = boardService.findBoardPaging(pageable);
         return new ResponseEntity<>(new GetBoardPage(true,"게시글 페이징",boardPaging),HttpStatus.OK);
     }
