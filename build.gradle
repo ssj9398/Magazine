@@ -33,6 +33,7 @@ dependencies {
     implementation "io.springfox:springfox-boot-starter:3.0.0"
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
     implementation 'com.querydsl:querydsl-jpa'
+    runtimeOnly 'com.h2database:h2'
 }
 
 //querydsl 추가 시작
