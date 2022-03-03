@@ -1,5 +1,6 @@
 package week.pro.dto.request;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,4 +28,13 @@ public class RegisterRequestDto {
     @NotBlank(message = "비밀번호를 4자 이상 입력해 주세요.")
     @Size(min = 4)
     private String password_check;
+
+    @Builder
+    public RegisterRequestDto(String account_name, String account_email, String password, String password_check){
+        this.account_name = account_name;
+        this.account_email = account_email;
+        this.password = password;
+        this.password_check=password_check;
+
+    }
 }
