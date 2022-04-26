@@ -1,4 +1,4 @@
-<h3 align="center"><b>개인 프로젝트 매거진 만들기</b></h3>
+<h3 align="center"><b>매거진</b></h3>
 
 <h4 align="center">📆 2022.02.18 ~</h4>
 <br>
@@ -8,7 +8,6 @@
 
 ## 📌 프론트엔드
 
-|김선주|
 |:----:|
 |<img src="https://avatars.githubusercontent.com/u/66668478?v=4" alt="avatar" height="150px" width="150px" /> |
 [sunny-yo](https://github.com/MagazineProject/FE_sunju_MagazineProject/tree/api/LYW)|
@@ -34,13 +33,20 @@
 <p align="center">
 
 <img src="https://img.shields.io/badge/java11-539bf5?style=for-the-badge&logo=java1.8&logoColor=white">
+<img src="https://img.shields.io/badge/gradle-1f4954?style=for-the-badge&logo=gradle&logoColor=white">
+
+</br>
+    
 <img src="https://img.shields.io/badge/jpa-green?style=for-the-badge&logo=jpa&logoColor=white">
 <img src="https://img.shields.io/badge/spring%20data%20jpa-green?style=for-the-badge&logo=springdatajpa&logoColor=white">
-<img src="https://img.shields.io/badge/gradle-1f4954?style=for-the-badge&logo=gradle&logoColor=white">
+<img src="https://img.shields.io/badge/springsecurity-green?style=for-the-badge&logo=springsecurity&logoColor=white">
+<img src="https://img.shields.io/badge/querydsl-blue?style=for-the-badge&logo=querydsl&logoColor=white">
+<img src="https://img.shields.io/badge/mysql-skyblue?style=for-the-badge&logo=mysql&logoColor=white">
+    
+</br>
+    
 <img src="https://img.shields.io/badge/Junit5-green?style=for-the-badge&logo=Junit5&logoColor=white">
 <img src="https://img.shields.io/badge/swagger3.0-green?style=for-the-badge&logo=swagger&logoColor=white">
-<img src="https://img.shields.io/badge/springsecurity-green?style=for-the-badge&logo=springsecurity&logoColor=white">
-<img src="https://img.shields.io/badge/mysql-skyblue?style=for-the-badge&logo=mysql&logoColor=white">
 
 </br>
 
@@ -48,9 +54,11 @@
 <img src="https://img.shields.io/badge/awsEc2-orange?style=for-the-badge&logo=awsrds&logoColor=white">
 <img src="https://img.shields.io/badge/awsS3-orange?style=for-the-badge&logo=awsrds&logoColor=white">
 <img src="https://img.shields.io/badge/ubuntu-orange?style=for-the-badge&logo=ubuntu&logoColor=white">
-<img src="https://img.shields.io/badge/git Action-blue?style=for-the-badge&logo=gitAction&logoColor=white">
+
+</br>
+
+<img src="https://img.shields.io/badge/GitHub Actions-blue?style=for-the-badge&logo=GitHub Actions&logoColor=white">
 <img src="https://img.shields.io/badge/docker-blue?style=for-the-badge&logo=docker&logoColor=white">
-<img src="https://img.shields.io/badge/querydsl-blue?style=for-the-badge&logo=querydsl&logoColor=white">
 
 </br>
 
