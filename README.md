@@ -7,7 +7,7 @@
 ---
 
 ## 📌 프론트엔드
-
+||
 |:----:|
 |<img src="https://avatars.githubusercontent.com/u/66668478?v=4" alt="avatar" height="150px" width="150px" /> |
 [sunny-yo](https://github.com/MagazineProject/FE_sunju_MagazineProject/tree/api/LYW)|
